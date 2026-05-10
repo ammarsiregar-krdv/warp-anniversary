@@ -301,52 +301,100 @@ def do_pull(state: dict, data: dict) -> tuple[dict, dict]:
 # UI COMPONENTS
 # ─────────────────────────────────────────────────────────────
 def render_result_card(item: dict, rarity: int):
-    star_str   = "★" * rarity + "☆" * (5 - rarity)
-    star_class = f"stars-{rarity}"
-    card_class = f"card-{rarity}star"
+    import base64
+    import streamlit.components.v1 as components
+
+    star_str     = "★" * rarity + "☆" * (5 - rarity)
     rarity_label = {3: "Common Memory", 4: "Precious Memory", 5: "⭐ Stellar Relic ⭐"}[rarity]
 
+    border_grad = {
+        3: "linear-gradient(135deg,#4a6fa5,#7aa2d4)",
+        4: "linear-gradient(135deg,#9b59b6,#c39bd3)",
+        5: "linear-gradient(135deg,#f39c12,#C8A96E,#f1c40f)",
+    }[rarity]
+    bg_grad = {
+        3: "linear-gradient(160deg,#13131F,#1a1a2a)",
+        4: "linear-gradient(160deg,#1a1230,#221840)",
+        5: "linear-gradient(160deg,#2a1800,#3d2200)",
+    }[rarity]
+    label_color = {3: "#7aa2d4", 4: "#c39bd3", 5: "#C8A96E"}[rarity]
+    star_color  = {3: "#7aa2d4", 4: "#c39bd3", 5: "#C8A96E"}[rarity]
+    glow        = "0 0 60px rgba(200,169,110,0.35)" if rarity == 5 else "none"
+
     if rarity == 3:
-        body_html = f"""
-        <p style="font-size:0.75rem;color:#7aa2d4;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.8rem;">{rarity_label}</p>
-        <p style="font-size:1rem;color:#c8c8e0;line-height:1.7;font-style:italic;">"{item.get('content', '')}"</p>
-        """
+        content = item.get("content", "")
+        body_html = (
+            f'<p style="font-size:0.72rem;color:{label_color};text-transform:uppercase;'
+            f'letter-spacing:0.14em;margin:0 0 1rem 0;">{rarity_label}</p>'
+            f'<p style="font-size:1rem;color:#c8c8e0;line-height:1.75;font-style:italic;'
+            f'font-family:Georgia,serif;margin:0;">&ldquo;{content}&rdquo;</p>'
+        )
 
     elif rarity == 4:
         caption    = item.get("caption", "")
         photo_file = item.get("photo_file", "")
         photo_path = os.path.join(PHOTOS_DIR, photo_file)
         if os.path.exists(photo_path):
-            import base64
             with open(photo_path, "rb") as f:
                 img_b64 = base64.b64encode(f.read()).decode()
-            ext      = photo_file.split(".")[-1]
-            img_html = f'<img src="data:image/{ext};base64,{img_b64}" style="max-width:100%;border-radius:12px;margin:1rem 0;" />'
+            ext      = photo_file.rsplit(".", 1)[-1].lower()
+            img_html = (
+                f'<img src="data:image/{ext};base64,{img_b64}" '
+                f'style="max-width:100%;border-radius:10px;margin:1rem 0 0.75rem 0;display:block;" />'
+            )
         else:
-            img_html = '<div style="height:150px;background:#1a1a2a;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#555;font-size:0.8rem;margin:1rem 0;">[ Photo missing — add to assets/photos/ ]</div>'
-        body_html = f"""
-        <p style="font-size:0.75rem;color:#c39bd3;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.5rem;">{rarity_label}</p>
-        {img_html}
-        <p style="font-size:0.9rem;color:#c8c8e0;font-style:italic;">"{caption}"</p>
-        """
+            img_html = (
+                '<div style="height:140px;background:#1a1a2a;border-radius:10px;'
+                'display:flex;align-items:center;justify-content:center;'
+                'color:#555;font-size:0.8rem;margin:1rem 0;">'
+                '[ Add photo to assets/photos/ ]</div>'
+            )
+        body_html = (
+            f'<p style="font-size:0.72rem;color:{label_color};text-transform:uppercase;'
+            f'letter-spacing:0.14em;margin:0 0 0.5rem 0;">{rarity_label}</p>'
+            f'{img_html}'
+            f'<p style="font-size:0.9rem;color:#c8c8e0;font-style:italic;'
+            f'font-family:Georgia,serif;margin:0;">&ldquo;{caption}&rdquo;</p>'
+        )
 
     else:
-        body_html = f"""
-        <p style="font-size:0.75rem;color:#C8A96E;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.5rem;">{rarity_label}</p>
-        <p style="font-family:'Cinzel',serif;font-size:1.4rem;color:#f1c40f;margin:0.5rem 0;">{item.get('destination','')}</p>
-        <div style="background:rgba(200,169,110,0.08);border:1px solid rgba(200,169,110,0.3);border-radius:10px;padding:1rem;margin:1rem 0;">
-            <p style="color:#e8d9b0;font-size:0.95rem;line-height:1.7;margin:0 0 0.5rem 0;">{item.get('description','')}</p>
-            <p style="color:#888;font-size:0.75rem;margin:0;">📅 {item.get('validity','')}</p>
-            <p style="color:#666;font-size:0.7rem;font-style:italic;margin:0.3rem 0 0 0;">*{item.get('terms','')}*</p>
-        </div>
-        """
+        destination = item.get("destination", "")
+        description = item.get("description", "")
+        validity    = item.get("validity", "")
+        terms       = item.get("terms", "")
+        body_html = (
+            f'<p style="font-size:0.72rem;color:{label_color};text-transform:uppercase;'
+            f'letter-spacing:0.14em;margin:0 0 0.5rem 0;">{rarity_label}</p>'
+            f'<p style="font-family:Georgia,serif;font-size:1.35rem;color:#f1c40f;'
+            f'margin:0.4rem 0 1rem 0;font-weight:bold;">{destination}</p>'
+            f'<div style="background:rgba(200,169,110,0.08);border:1px solid rgba(200,169,110,0.25);'
+            f'border-radius:10px;padding:1rem 1.1rem;">'
+            f'<p style="color:#e8d9b0;font-size:0.95rem;line-height:1.7;margin:0 0 0.6rem 0;">{description}</p>'
+            f'<p style="color:#888;font-size:0.75rem;margin:0 0 0.3rem 0;">&#128197; {validity}</p>'
+            f'<p style="color:#666;font-size:0.7rem;font-style:italic;margin:0;">*{terms}*</p>'
+            f'</div>'
+        )
 
-    st.markdown(f"""
-    <div class="result-card {card_class}">
-        <span class="rarity-badge {star_class}">{star_str}</span>
-        {body_html}
-    </div>
-    """, unsafe_allow_html=True)
+    glow_css = "text-shadow: 0 0 12px rgba(200,169,110,0.9);" if rarity == 5 else ""
+    card_html = f"""<!DOCTYPE html>
+<html><head>
+<style>
+  body {{ margin:0; padding:0; background:transparent; }}
+  @keyframes fadeIn {{ from {{ opacity:0; transform:translateY(16px); }} to {{ opacity:1; transform:translateY(0); }} }}
+  .wrap {{ border-radius:17px; padding:1.5px; background:{border_grad}; animation:fadeIn 0.55s ease; }}
+  .card {{ background:{bg_grad}; border-radius:16px; padding:1.8rem 2rem; text-align:center; box-shadow:{glow}; }}
+  .stars {{ font-size:1.15rem; color:{star_color}; {glow_css} display:block; margin-bottom:0.9rem; letter-spacing:0.1em; }}
+</style></head>
+<body>
+  <div class="wrap"><div class="card">
+    <span class="stars">{star_str}</span>
+    {body_html}
+  </div></div>
+</body></html>"""
+
+    height = {3: 210, 4: 480, 5: 310}[rarity]
+    components.html(card_html, height=height, scrolling=False)
+
 
 
 def render_pity_info(pity: int):
