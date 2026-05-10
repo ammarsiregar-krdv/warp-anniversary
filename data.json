@@ -1,0 +1,134 @@
+{
+  "three_star": [
+    {
+      "id": "3s_001",
+      "rarity": 3,
+      "type": "affirmation",
+      "title": "Daily Broadcast",
+      "content": "You make every ordinary Tuesday feel like a loading screen that actually matters."
+    },
+    {
+      "id": "3s_002",
+      "rarity": 3,
+      "type": "affirmation",
+      "title": "Daily Broadcast",
+      "content": "I like that you exist. That's it. That's the whole thought."
+    },
+    {
+      "id": "3s_003",
+      "rarity": 3,
+      "type": "affirmation",
+      "title": "Daily Broadcast",
+      "content": "Your taste in everything is genuinely scary good. Interior design, games, people (me, specifically)."
+    },
+    {
+      "id": "3s_004",
+      "rarity": 3,
+      "type": "affirmation",
+      "title": "Daily Broadcast",
+      "content": "You have this thing where you make complicated things feel simple. I find that very annoying and very attractive."
+    },
+    {
+      "id": "3s_005",
+      "rarity": 3,
+      "type": "affirmation",
+      "title": "Daily Broadcast",
+      "content": "Not everyone gets a person who actually listens. I got one."
+    },
+    {
+      "id": "3s_006",
+      "rarity": 3,
+      "type": "affirmation",
+      "title": "Daily Broadcast",
+      "content": "The way you see space and color and form — and somehow also find time to be this funny — is not normal. In a good way."
+    },
+    {
+      "id": "3s_007",
+      "rarity": 3,
+      "type": "affirmation",
+      "title": "Daily Broadcast",
+      "content": "I think about you a lot when I'm doing completely unrelated things. Hazard of knowing you."
+    },
+    {
+      "id": "3s_008",
+      "rarity": 3,
+      "type": "affirmation",
+      "title": "Daily Broadcast",
+      "content": "You could probably make a Google Slides look like a luxury editorial. It's a little unfair to everyone else."
+    },
+    {
+      "id": "3s_009",
+      "rarity": 3,
+      "type": "affirmation",
+      "title": "Daily Broadcast",
+      "content": "Every conversation with you has at least one moment that makes me think 'yeah, okay, this one's different.'"
+    },
+    {
+      "id": "3s_010",
+      "rarity": 3,
+      "type": "affirmation",
+      "title": "Daily Broadcast",
+      "content": "I'm really glad we decided to figure this out together."
+    }
+  ],
+
+  "four_star": [
+    {
+      "id": "4s_001",
+      "rarity": 4,
+      "type": "memory",
+      "title": "Memory Fragment",
+      "caption": "Write a caption for this photo here.",
+      "photo_file": "photo_001.jpg"
+    },
+    {
+      "id": "4s_002",
+      "rarity": 4,
+      "type": "memory",
+      "title": "Memory Fragment",
+      "caption": "Write a caption for this photo here.",
+      "photo_file": "photo_002.jpg"
+    },
+    {
+      "id": "4s_003",
+      "rarity": 4,
+      "type": "memory",
+      "title": "Memory Fragment",
+      "caption": "Write a caption for this photo here.",
+      "photo_file": "photo_003.jpg"
+    }
+  ],
+
+  "five_star": [
+    {
+      "id": "5s_001",
+      "rarity": 5,
+      "type": "date_voucher",
+      "title": "Date Voucher",
+      "destination": "Bandung",
+      "description": "One full day in Bandung, your itinerary, my presence. Non-negotiable.",
+      "validity": "Valid until December 2026",
+      "terms": "Redeemable anytime. No expiry on the feelings."
+    },
+    {
+      "id": "5s_002",
+      "rarity": 5,
+      "type": "date_voucher",
+      "title": "Date Voucher",
+      "destination": "Dinner, Your Pick",
+      "description": "You choose the restaurant. I pay, I show up, I listen to all of it.",
+      "validity": "Valid until December 2026",
+      "terms": "Zero judgment on the restaurant choice. Zero."
+    },
+    {
+      "id": "5s_003",
+      "rarity": 5,
+      "type": "date_voucher",
+      "title": "Date Voucher",
+      "destination": "Museum / Exhibition",
+      "description": "We find an art or design exhibition. You explain everything to me. I will not pretend to understand and then immediately understand.",
+      "validity": "Valid until December 2026",
+      "terms": "Counts double if it's a design exhibition."
+    }
+  ]
+}
