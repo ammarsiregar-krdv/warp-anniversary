@@ -5,70 +5,70 @@
       "rarity": 3,
       "type": "affirmation",
       "title": "Daily Broadcast",
-      "content": "You make every ordinary Tuesday feel like a loading screen that actually matters."
+      "content": "Kamu bikin hari selasa yang biasa jadi kayak loading screen yang berarti. ⏳✨"
     },
     {
       "id": "3s_002",
       "rarity": 3,
       "type": "affirmation",
       "title": "Daily Broadcast",
-      "content": "I like that you exist. That's it. That's the whole thought."
+      "content": "I love that you exist my babygirl. That's it. That's the whole thought. ❤️❤️"
     },
     {
       "id": "3s_003",
       "rarity": 3,
       "type": "affirmation",
       "title": "Daily Broadcast",
-      "content": "Your taste in everything is genuinely scary good. Interior design, games, people (me, specifically)."
+      "content": "Your taste in everything beneran gacor, kamu emang jack of all trade ya my baby: interior design, games, and people (me, specifically).😗"
     },
     {
       "id": "3s_004",
       "rarity": 3,
       "type": "affirmation",
       "title": "Daily Broadcast",
-      "content": "You have this thing where you make complicated things feel simple. I find that very annoying and very attractive."
+      "content": "Kamu ada hal dimana bikin suatu hal complicated padahal harusnya simpel WKWKWKWKWK, I find that very annoying and very attractive.😍😍"
     },
     {
       "id": "3s_005",
       "rarity": 3,
       "type": "affirmation",
       "title": "Daily Broadcast",
-      "content": "Not everyone gets a person who actually listens. I got one."
+      "content": "You are the most hard working person I ever know my babygirl, I am glad that I can be helpful sometimes for you.🤗🤗"
     },
     {
       "id": "3s_006",
       "rarity": 3,
       "type": "affirmation",
       "title": "Daily Broadcast",
-      "content": "The way you see space and color and form — and somehow also find time to be this funny — is not normal. In a good way."
+      "content": "The way you see space and color and form, and somehow also find time to be this funny, is not normal. In a good way ya sayanggg.🫶🤣"
     },
     {
       "id": "3s_007",
       "rarity": 3,
       "type": "affirmation",
       "title": "Daily Broadcast",
-      "content": "I think about you a lot when I'm doing completely unrelated things. Hazard of knowing you."
+      "content": "I think about you a lot when I'm doing completely unrelated things.🥰🥰"
     },
     {
       "id": "3s_008",
       "rarity": 3,
       "type": "affirmation",
       "title": "Daily Broadcast",
-      "content": "You could probably make a Google Slides look like a luxury editorial. It's a little unfair to everyone else."
+      "content": "You could probably make a basic slides look like a luxury editorial. It's a little unfair to everyone else my babygirl."
     },
     {
       "id": "3s_009",
       "rarity": 3,
       "type": "affirmation",
       "title": "Daily Broadcast",
-      "content": "Every conversation with you has at least one moment that makes me think 'yeah, okay, this one's different.'"
+      "content": "Every dc call with you has at least one moment that makes me think 'yeah, okay, this one's different.'"
     },
     {
       "id": "3s_010",
       "rarity": 3,
       "type": "affirmation",
       "title": "Daily Broadcast",
-      "content": "I'm really glad we decided to figure this out together."
+      "content": "I'm really glad we decided to figure this out together. Yes, even if it means I know about your haikyuu fanfics.😂😘"
     }
   ],
 
@@ -77,25 +77,25 @@
       "id": "4s_001",
       "rarity": 4,
       "type": "memory",
-      "title": "Memory Fragment",
-      "caption": "Write a caption for this photo here.",
-      "photo_file": "photo_001.jpg"
+      "title": "Discord Late Nights",
+      "caption": "Proof that our sarcastic banter is my favorite part of the day. Put a screenshot of a funny Discord chat here.",
+      "photo_file": "discord_screenshot.jpg"
     },
     {
       "id": "4s_002",
       "rarity": 4,
       "type": "memory",
-      "title": "Memory Fragment",
-      "caption": "Write a caption for this photo here.",
-      "photo_file": "photo_002.jpg"
+      "title": "The Master Planner",
+      "caption": "My favorite personal Event Organizer planning our next trip. 10/10 would hire again.",
+      "photo_file": "planning_photo.jpg"
     },
     {
       "id": "4s_003",
       "rarity": 4,
       "type": "memory",
-      "title": "Memory Fragment",
-      "caption": "Write a caption for this photo here.",
-      "photo_file": "photo_003.jpg"
+      "title": "Artist at Work",
+      "caption": "Just a brilliant interior designer doing what she does best.",
+      "photo_file": "sarah_art_photo.jpg"
     }
   ],
 
@@ -104,9 +104,9 @@
       "id": "5s_001",
       "rarity": 5,
       "type": "date_voucher",
-      "title": "Date Voucher",
+      "title": "Date Voucher: The ITB Nostalgia Trip",
       "destination": "Bandung",
-      "description": "One full day in Bandung, your itinerary, my presence. Non-negotiable.",
+      "description": "One full day in Bandung. You play the Event Organizer, I fund the FSRD nostalgia trip. Non-negotiable.",
       "validity": "Valid until December 2026",
       "terms": "Redeemable anytime. No expiry on the feelings."
     },
@@ -114,21 +114,21 @@
       "id": "5s_002",
       "rarity": 5,
       "type": "date_voucher",
-      "title": "Date Voucher",
+      "title": "Date Voucher: Dinner & Lore",
       "destination": "Dinner, Your Pick",
-      "description": "You choose the restaurant. I pay, I show up, I listen to all of it.",
+      "description": "You choose the restaurant. I pay, I show up, and I will happily listen to the full lore of your high school Haikyuu Original Character.",
       "validity": "Valid until December 2026",
-      "terms": "Zero judgment on the restaurant choice. Zero."
+      "terms": "Zero judgment on the restaurant choice. Absolutely zero judgment on the fanfic."
     },
     {
       "id": "5s_003",
       "rarity": 5,
       "type": "date_voucher",
-      "title": "Date Voucher",
-      "destination": "Museum / Exhibition",
-      "description": "We find an art or design exhibition. You explain everything to me. I will not pretend to understand and then immediately understand.",
+      "title": "Date Voucher: Exhibition Guide",
+      "destination": "Museum / Art Exhibition",
+      "description": "We find an art, animation, or design exhibition. You explain everything to me. I will not pretend to understand and then immediately understand.",
       "validity": "Valid until December 2026",
-      "terms": "Counts double if it's a design exhibition."
+      "terms": "Counts double if it's an interior design exhibition."
     }
   ]
 }
