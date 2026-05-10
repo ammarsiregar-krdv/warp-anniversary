@@ -397,6 +397,153 @@ def render_result_card(item: dict, rarity: int):
 
 
 
+
+# ─────────────────────────────────────────────────────────────
+# SOUND + VISUAL EFFECTS
+# ─────────────────────────────────────────────────────────────
+def play_warp_effects(rarity: int):
+    """
+    Inject a self-contained iframe that:
+    1. Plays a synth warp sound via Web Audio API (no file needed)
+    2. Flashes a full-screen rarity-coloured overlay
+    Both fire immediately on load, then disappear.
+    """
+    import streamlit.components.v1 as components
+
+    # Rarity-specific tuning
+    cfg = {
+        3: dict(
+            flash_color="rgba(74,111,165,0.55)",
+            freq_start=320, freq_end=180,
+            duration=0.55,
+            label="3★",
+        ),
+        4: dict(
+            flash_color="rgba(155,89,182,0.65)",
+            freq_start=480, freq_end=220,
+            duration=0.75,
+            label="4★",
+        ),
+        5: dict(
+            flash_color="rgba(200,169,110,0.80)",
+            freq_start=680, freq_end=260,
+            duration=1.1,
+            label="5★",
+        ),
+    }[rarity]
+
+    # 5-star gets an extra sparkle sequence on top
+    sparkle_js = ""
+    if rarity == 5:
+        sparkle_js = """
+        // extra high shimmer note for 5-star
+        var osc2 = ctx.createOscillator();
+        var gain2 = ctx.createGain();
+        osc2.connect(gain2); gain2.connect(ctx.destination);
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(1200, ctx.currentTime);
+        osc2.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.3);
+        gain2.gain.setValueAtTime(0.18, ctx.currentTime);
+        gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+        osc2.start(ctx.currentTime + 0.1);
+        osc2.stop(ctx.currentTime + 0.6);
+
+        // particle burst
+        for (var i = 0; i < 18; i++) {
+            (function(i) {
+                var p = document.createElement('div');
+                var angle = (i / 18) * 360;
+                var dist = 80 + Math.random() * 60;
+                p.style.cssText = [
+                    'position:fixed',
+                    'width:6px', 'height:6px',
+                    'border-radius:50%',
+                    'background:#C8A96E',
+                    'top:50%', 'left:50%',
+                    'pointer-events:none',
+                    'z-index:99999',
+                    'transition:transform 0.7s ease-out, opacity 0.7s ease-out',
+                    'transform:translate(-50%,-50%)',
+                    'opacity:1',
+                ].join(';');
+                document.body.appendChild(p);
+                setTimeout(function() {
+                    var rad = angle * Math.PI / 180;
+                    var tx = Math.cos(rad) * dist;
+                    var ty = Math.sin(rad) * dist;
+                    p.style.transform = 'translate(calc(-50% + ' + tx + 'px), calc(-50% + ' + ty + 'px)) scale(0.2)';
+                    p.style.opacity = '0';
+                    setTimeout(function() { p.remove(); }, 750);
+                }, 30);
+            })(i);
+        }
+        """
+
+    html = f"""<!DOCTYPE html>
+<html>
+<head><style>
+  body {{ margin:0; padding:0; background:transparent; overflow:hidden; }}
+  #flash {{
+    position: fixed;
+    inset: 0;
+    background: {cfg['flash_color']};
+    z-index: 99998;
+    pointer-events: none;
+    animation: flashOut {cfg['duration']}s ease-out forwards;
+  }}
+  @keyframes flashOut {{
+    0%   {{ opacity: 1; }}
+    40%  {{ opacity: 0.6; }}
+    100% {{ opacity: 0; }}
+  }}
+</style></head>
+<body>
+<div id="flash"></div>
+<script>
+(function() {{
+  // ── Web Audio synth ──
+  var ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+  // Main sweep tone
+  var osc = ctx.createOscillator();
+  var gain = ctx.createGain();
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime({cfg['freq_start']}, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime({cfg['freq_end']}, ctx.currentTime + {cfg['duration']});
+
+  gain.gain.setValueAtTime(0.25, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + {cfg['duration']});
+
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + {cfg['duration']});
+
+  // Noise burst at start (the "whoosh" texture)
+  var bufSize = ctx.sampleRate * 0.15;
+  var buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+  var data = buf.getChannelData(0);
+  for (var i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1);
+  var noise = ctx.createBufferSource();
+  noise.buffer = buf;
+  var noiseGain = ctx.createGain();
+  noiseGain.gain.setValueAtTime(0.12, ctx.currentTime);
+  noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+  noise.connect(noiseGain);
+  noiseGain.connect(ctx.destination);
+  noise.start(ctx.currentTime);
+
+  {sparkle_js}
+}})();
+</script>
+</body></html>"""
+
+    # Height 0 — invisible widget, just fires audio + injects flash into parent
+    components.html(html, height=0, scrolling=False)
+
+
+
 def render_pity_info(pity: int):
     progress = min(pity / HARD_PITY, 1.0)
     label    = f"Pity: {pity}/{HARD_PITY}"
@@ -465,11 +612,19 @@ def main():
                 time.sleep(0.8)
             st.session_state.state, item = do_pull(st.session_state.state, data)
             save_state(st.session_state.state)          # ← writes to Supabase
-            st.session_state.last_pull = (item, st.session_state.state["inventory"][-1]["rarity"])
+            pulled_rarity = st.session_state.state["inventory"][-1]["rarity"]
+            st.session_state.last_pull = (item, pulled_rarity)
+            st.session_state.play_sfx = pulled_rarity   # signal to play SFX on next render
             st.rerun()
 
         if st.session_state.last_pull:
             item, rarity = st.session_state.last_pull
+
+            # Fire SFX once per new pull (consume the signal)
+            if st.session_state.get("play_sfx") == rarity:
+                play_warp_effects(rarity)
+                st.session_state.play_sfx = None
+
             flavor = {
                 3: "A signal from the past drifts in...",
                 4: "A memory crystallizes from the void.",
