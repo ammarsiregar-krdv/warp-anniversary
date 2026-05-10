@@ -1,0 +1,13 @@
+# Secrets — NEVER commit these
+.streamlit/secrets.toml
+
+# Local state (only relevant for the file-based version)
+state.json
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# OS
+.DS_Store
