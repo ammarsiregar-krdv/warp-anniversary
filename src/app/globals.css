@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #07070f;
+  color: #e8e4da;
+  font-family: 'Raleway', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: #07070f; }
+::-webkit-scrollbar-thumb { background: #2a2a45; border-radius: 99px; }
+
+/* Shimmer animation for pity bar at soft pity */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* Ambient glow pulse used on card border */
+@keyframes glowPulse {
+  0%,100% { box-shadow: 0 0 20px var(--glow); }
+  50%     { box-shadow: 0 0 55px var(--glow), 0 0 90px var(--glow); }
+}
