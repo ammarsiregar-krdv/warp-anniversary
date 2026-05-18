@@ -36,7 +36,7 @@ export default function Home() {
   const noTickets = state.tickets <= 0;
 
   async function handlePull() {
-    if (noTickets || animating) return;
+    if (!state || noTickets || animating) return;
     setAnimating(true);
     const { nextState, item } = executePull(state, itemPool as any);
     const rarity = nextState.inventory[nextState.inventory.length - 1].rarity;

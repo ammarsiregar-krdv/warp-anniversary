@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { RARITY_PALETTE } from "@/lib/constants";
-import type { WarpItem, ThreeStarItem, FourStarItem, FiveStarItem } from "@/lib/types";
+import type { WarpItem, ThreeStarItem, FourStarItem, FiveStarItem, RarityPalette } from "@/lib/types";
 
 interface Props {
   item:   WarpItem;
@@ -51,7 +51,7 @@ export default function ResultCard({ item, rarity }: Props) {
   );
 }
 
-function ThreeStarBody({ item, palette }: { item: ThreeStarItem; palette: ReturnType<typeof RARITY_PALETTE[number]> }) {
+function ThreeStarBody({ item, palette }: { item: ThreeStarItem; palette: RarityPalette }) {
   return (
     <p className="text-base leading-relaxed italic max-w-sm mx-auto"
        style={{ color: "#d4d0c8", fontFamily: "Georgia, serif" }}>
@@ -60,7 +60,7 @@ function ThreeStarBody({ item, palette }: { item: ThreeStarItem; palette: Return
   );
 }
 
-function FourStarBody({ item, palette }: { item: FourStarItem; palette: ReturnType<typeof RARITY_PALETTE[number]> }) {
+function FourStarBody({ item, palette }: { item: FourStarItem; palette: RarityPalette }) {
   return (
     <div className="flex flex-col items-center gap-3">
       <div className="relative w-full rounded-xl overflow-hidden" style={{ aspectRatio: "4/3" }}>
@@ -84,7 +84,7 @@ function FourStarBody({ item, palette }: { item: FourStarItem; palette: ReturnTy
   );
 }
 
-function FiveStarBody({ item, palette }: { item: FiveStarItem; palette: ReturnType<typeof RARITY_PALETTE[number]> }) {
+function FiveStarBody({ item, palette }: { item: FiveStarItem; palette: RarityPalette }) {
   return (
     <div className="flex flex-col gap-3">
       <p className="text-2xl font-bold tracking-wide" style={{ color: palette.secondary, fontFamily: "Georgia, serif" }}>
