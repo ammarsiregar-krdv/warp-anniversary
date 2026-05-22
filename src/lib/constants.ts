@@ -1,6 +1,6 @@
 import type { RarityPalette } from "./types";
 
-export const TICKETS_PER_DAY = 10;
+export const TICKETS_PER_DAY = 6;
 export const SOFT_PITY       = 60;
 export const HARD_PITY       = 80;
 export const PLAYER_ID       = "player_one";

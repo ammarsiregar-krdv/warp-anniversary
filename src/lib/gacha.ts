@@ -4,6 +4,7 @@ import {
   BASE_WEIGHT_5,
   HARD_PITY,
   SOFT_PITY,
+  TICKETS_PER_DAY,
 } from "./constants";
 import type { ItemPool, PlayerState, WarpItem } from "./types";
 
@@ -76,7 +77,16 @@ export function executePull(
 export function refillIfNewDay(state: PlayerState): PlayerState {
   const today = new Date().toISOString().slice(0, 10);
   if (state.last_refill_date !== today) {
-    return { ...state, tickets: 3, last_refill_date: today };
+    // Ensure she gets at least one 4-star within today's tickets:
+    // The guarantee fires when guaranteed_4star >= 9, so starting at
+    // (10 - TICKETS_PER_DAY) means it reaches 9 on the very last pull.
+    const minPity = 10 - TICKETS_PER_DAY;
+    return {
+      ...state,
+      tickets:          TICKETS_PER_DAY,
+      last_refill_date: today,
+      guaranteed_4star: Math.max(state.guaranteed_4star, minPity),
+    };
   }
   return state;
 }
