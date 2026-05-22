@@ -118,7 +118,7 @@ export default function InventoryPanel({ open, onClose, inventory }: Props) {
         {selected && (
           <>
             <motion.div
-              className="fixed inset-0 z-60"
+              className="fixed inset-0 z-[60]"
               style={{ background: "rgba(0,0,0,0.85)", backdropFilter: "blur(8px)" }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -126,7 +126,7 @@ export default function InventoryPanel({ open, onClose, inventory }: Props) {
               onClick={() => setSelected(null)}
             />
             <motion.div
-              className="fixed inset-x-4 z-60 rounded-2xl overflow-hidden"
+              className="fixed inset-x-4 z-[70] rounded-2xl overflow-hidden"
               style={{
                 top: "50%",
                 background: "#0f0f1e",
