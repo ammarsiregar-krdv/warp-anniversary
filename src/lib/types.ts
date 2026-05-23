@@ -19,9 +19,9 @@ export interface FourStarItem {
 export interface FiveStarItem {
   id: string;
   rarity: 5;
-  type: "date_voucher";
+  type: "date_voucher" | "massage_voucher";
   title: string;
-  destination: string;
+  destination?: string;
   description: string;
   validity: string;
   terms: string;
@@ -38,13 +38,14 @@ export interface ItemPool {
 
 // ── Player state (mirrors Supabase warp_state table) ─────────
 export interface PlayerState {
-  player_id:        string;
-  tickets:          number;
-  last_refill_date: string;
-  pity_counter:     number;
-  guaranteed_4star: number;
-  pulled_ids:       string[];
-  inventory:        InventoryEntry[];
+  player_id:             string;
+  tickets:               number;
+  last_refill_date:      string;
+  pity_counter:          number;
+  guaranteed_4star:      number;
+  pulled_ids:            string[];
+  inventory:             InventoryEntry[];
+  special_offer_claimed: boolean;
 }
 
 export interface InventoryEntry {

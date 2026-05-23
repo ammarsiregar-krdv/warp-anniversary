@@ -2,12 +2,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePlayerState }  from "@/hooks/usePlayerState";
-import { executePull }     from "@/lib/gacha";
+import { executePull, claimSpecialOffer } from "@/lib/gacha";
 import { RARITY_PALETTE, TICKETS_PER_DAY, HARD_PITY, SOFT_PITY } from "@/lib/constants";
 import StarField           from "@/components/StarField";
 import WarpAnimation       from "@/components/WarpAnimation";
 import PityBar             from "@/components/PityBar";
 import InventoryPanel      from "@/components/InventoryPanel";
+import SpecialOfferBanner  from "@/components/SpecialOfferBanner";
 import type { WarpItem }   from "@/lib/types";
 
 // ── Item pool — inline so no extra fetch needed ───────────────
@@ -48,6 +49,14 @@ export default function Home() {
     setLastPull(result);
     setResult(null);
     setAnimating(false);
+  }
+
+  async function handleClaimOffer() {
+    if (!state || animating) return;
+    setAnimating(true);
+    const { nextState, item } = claimSpecialOffer(state, itemPool as any);
+    await persist(nextState);
+    setResult({ item, rarity: 5 });
   }
 
   const fiveStarCount = state.inventory.filter(e => e.rarity === 5).length;
@@ -137,6 +146,21 @@ export default function Home() {
               transition={{ duration: 0.4 }}
             >
               <LastPullBanner item={lastPull.item} rarity={lastPull.rarity} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── SPECIAL OFFER (one-time) ── */}
+        <AnimatePresence>
+          {!state.special_offer_claimed && (
+            <motion.div
+              className="w-full mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.5 }}
+            >
+              <SpecialOfferBanner onClaim={handleClaimOffer} disabled={animating} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -250,7 +274,7 @@ function LastPullBanner({ item, rarity }: { item: WarpItem; rarity: number }) {
     ? (item as any).content?.slice(0, 60) + "…"
     : rarity === 4
     ? (item as any).caption?.slice(0, 60) + "…"
-    : (item as any).destination;
+    : (item as any).destination ?? item.title;
 
   return (
     <div className="w-full rounded-xl px-4 py-3 flex items-center gap-3"

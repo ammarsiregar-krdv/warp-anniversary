@@ -90,3 +90,32 @@ export function refillIfNewDay(state: PlayerState): PlayerState {
   }
   return state;
 }
+
+// ── Special one-time offer ───────────────────────────────────
+export function claimSpecialOffer(
+  state: PlayerState,
+  pool: ItemPool
+): { nextState: PlayerState; item: WarpItem } {
+  const OFFER_ID = "5s_004";
+  const item = (pool.five_star as WarpItem[]).find(i => i.id === OFFER_ID)
+    ?? pool.five_star[pool.five_star.length - 1] as WarpItem;
+
+  const nextState: PlayerState = {
+    ...state,
+    special_offer_claimed: true,
+    pity_counter:     0,
+    guaranteed_4star: 0,
+    pulled_ids:       [...state.pulled_ids, item.id],
+    inventory: [
+      ...state.inventory,
+      {
+        id:        item.id,
+        rarity:    5,
+        title:     item.title,
+        timestamp: new Date().toISOString(),
+      },
+    ],
+  };
+
+  return { nextState, item };
+}

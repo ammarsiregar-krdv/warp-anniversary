@@ -43,11 +43,12 @@ export const RARITY_PALETTE: Record<number, RarityPalette> = {
 };
 
 export const DEFAULT_STATE = {
-  player_id:        PLAYER_ID,
-  tickets:          TICKETS_PER_DAY,
-  last_refill_date: new Date().toISOString().slice(0, 10),
-  pity_counter:     0,
-  guaranteed_4star: 0,
-  pulled_ids:       [] as string[],
-  inventory:        [] as never[],
+  player_id:             PLAYER_ID,
+  tickets:               TICKETS_PER_DAY,
+  last_refill_date:      new Date().toISOString().slice(0, 10),
+  pity_counter:          0,
+  guaranteed_4star:      0,
+  pulled_ids:            [] as string[],
+  inventory:             [] as never[],
+  special_offer_claimed: false,
 };
