@@ -57,8 +57,8 @@ export default function SpecialOfferBanner({ onClaim, disabled }: Props) {
 
         {/* Body */}
         <p className="text-xs leading-relaxed max-w-[260px]" style={{ color: "#9a8050" }}>
-          Your gacha luck? Officially fixed by Amar.
-          A guaranteed ★★★★★ pull — prepared just for you.
+          Your gacha luck? Officially fixed by Yours only babe...
+          A guaranteed ★★★★★ pull, prepared just for you.
           Claim once. Cherish forever.
         </p>
 
