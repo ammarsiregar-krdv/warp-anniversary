@@ -103,9 +103,9 @@ export function claimSpecialOffer(
   const nextState: PlayerState = {
     ...state,
     special_offer_claimed: true,
-    pity_counter:     0,
-    guaranteed_4star: 0,
-    pulled_ids:       [...state.pulled_ids, item.id],
+    // intentionally NOT resetting pity_counter or guaranteed_4star —
+    // this is a bonus pull outside the normal gacha pool
+    pulled_ids: [...state.pulled_ids, item.id],
     inventory: [
       ...state.inventory,
       {
