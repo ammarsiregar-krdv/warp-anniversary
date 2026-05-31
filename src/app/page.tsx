@@ -10,6 +10,7 @@ import PityBar             from "@/components/PityBar";
 import InventoryPanel      from "@/components/InventoryPanel";
 import SpecialOfferBanner  from "@/components/SpecialOfferBanner";
 import AnniversaryModal    from "@/components/AnniversaryModal";
+import MusicPlayer         from "@/components/MusicPlayer";
 import type { WarpItem }   from "@/lib/types";
 
 // ── Item pool — inline so no extra fetch needed ───────────────
@@ -22,6 +23,7 @@ export default function Home() {
   const [showInventory, setShowInventory] = useState(false);
   const [lastPull, setLastPull]     = useState<{ item: WarpItem; rarity: number } | null>(null);
   const [showAnniversary, setShowAnniversary] = useState(false);
+  const [musicAutoStart, setMusicAutoStart]   = useState(false);
 
   // Show anniversary modal on June 1st (once per device)
   useEffect(() => {
@@ -65,6 +67,7 @@ export default function Home() {
     if (!state || animating) return;
     localStorage.setItem("anniversary_claimed", "true");
     setShowAnniversary(false);
+    setMusicAutoStart(true);
     setAnimating(true);
     const { nextState, item } = claimAnniversaryGift(state, itemPool as any);
     await persist(nextState);
@@ -73,6 +76,7 @@ export default function Home() {
 
   function handleAnniversaryClose() {
     setShowAnniversary(false);
+    setMusicAutoStart(true);
   }
 
   async function handleClaimOffer() {
@@ -301,6 +305,9 @@ export default function Home() {
           />
         )}
       </AnimatePresence>
+
+      {/* ── MUSIC PLAYER ── */}
+      <MusicPlayer autoStart={musicAutoStart} />
 
       {/* ── INVENTORY DRAWER ── */}
       <InventoryPanel
