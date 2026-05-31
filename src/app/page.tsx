@@ -1,5 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
+// ── FORCE ANNIVERSARY MODAL FOR TESTING ──
+// Set to true to always show the modal (ignore date/localStorage)
+const FORCE_ANNIV_MODAL = true;
 import { motion, AnimatePresence } from "framer-motion";
 import { usePlayerState }  from "@/hooks/usePlayerState";
 import { executePull, claimSpecialOffer, claimAnniversaryGift } from "@/lib/gacha";
@@ -27,6 +30,10 @@ export default function Home() {
 
   // Show anniversary modal on June 1st (once per device)
   useEffect(() => {
+    if (FORCE_ANNIV_MODAL) {
+      setShowAnniversary(true);
+      return;
+    }
     const today = new Date().toISOString().slice(0, 10);
     if (today >= "2026-06-01" && !localStorage.getItem("anniversary_claimed")) {
       setShowAnniversary(true);
