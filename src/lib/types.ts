@@ -19,7 +19,7 @@ export interface FourStarItem {
 export interface FiveStarItem {
   id: string;
   rarity: 5;
-  type: "date_voucher" | "massage_voucher";
+  type: "date_voucher" | "massage_voucher" | "anniversary_letter";
   title: string;
   destination?: string;
   description: string;

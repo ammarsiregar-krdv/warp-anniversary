@@ -119,3 +119,30 @@ export function claimSpecialOffer(
 
   return { nextState, item };
 }
+
+// ── Anniversary gift (1-month) ───────────────────────────────
+export function claimAnniversaryGift(
+  state: PlayerState,
+  pool: ItemPool
+): { nextState: PlayerState; item: WarpItem } {
+  const ANNIVERSARY_ID = "5s_anniversary";
+  const item = (pool.five_star as WarpItem[]).find(i => i.id === ANNIVERSARY_ID)
+    ?? pool.five_star[0] as WarpItem;
+
+  const nextState: PlayerState = {
+    ...state,
+    // No ticket deduction — this is a gift outside the normal pull system
+    pulled_ids: [...state.pulled_ids, item.id],
+    inventory: [
+      ...state.inventory,
+      {
+        id:        item.id,
+        rarity:    5,
+        title:     item.title,
+        timestamp: new Date().toISOString(),
+      },
+    ],
+  };
+
+  return { nextState, item };
+}

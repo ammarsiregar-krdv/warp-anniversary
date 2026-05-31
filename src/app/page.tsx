@@ -1,14 +1,15 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePlayerState }  from "@/hooks/usePlayerState";
-import { executePull, claimSpecialOffer } from "@/lib/gacha";
+import { executePull, claimSpecialOffer, claimAnniversaryGift } from "@/lib/gacha";
 import { RARITY_PALETTE, TICKETS_PER_DAY, HARD_PITY, SOFT_PITY } from "@/lib/constants";
 import StarField           from "@/components/StarField";
 import WarpAnimation       from "@/components/WarpAnimation";
 import PityBar             from "@/components/PityBar";
 import InventoryPanel      from "@/components/InventoryPanel";
 import SpecialOfferBanner  from "@/components/SpecialOfferBanner";
+import AnniversaryModal    from "@/components/AnniversaryModal";
 import type { WarpItem }   from "@/lib/types";
 
 // ── Item pool — inline so no extra fetch needed ───────────────
@@ -20,6 +21,15 @@ export default function Home() {
   const [result, setResult]         = useState<{ item: WarpItem; rarity: number } | null>(null);
   const [showInventory, setShowInventory] = useState(false);
   const [lastPull, setLastPull]     = useState<{ item: WarpItem; rarity: number } | null>(null);
+  const [showAnniversary, setShowAnniversary] = useState(false);
+
+  // Show anniversary modal on June 1st (once per device)
+  useEffect(() => {
+    const today = new Date().toISOString().slice(0, 10);
+    if (today >= "2026-06-01" && !localStorage.getItem("anniversary_claimed")) {
+      setShowAnniversary(true);
+    }
+  }, []);
 
   if (loading || !state) {
     return (
@@ -49,6 +59,20 @@ export default function Home() {
     setLastPull(result);
     setResult(null);
     setAnimating(false);
+  }
+
+  async function handleAnniversaryClaim() {
+    if (!state || animating) return;
+    localStorage.setItem("anniversary_claimed", "true");
+    setShowAnniversary(false);
+    setAnimating(true);
+    const { nextState, item } = claimAnniversaryGift(state, itemPool as any);
+    await persist(nextState);
+    setResult({ item, rarity: 5 });
+  }
+
+  function handleAnniversaryClose() {
+    setShowAnniversary(false);
   }
 
   async function handleClaimOffer() {
@@ -94,6 +118,17 @@ export default function Home() {
           >
             Bandung Edition · Astral Express
           </motion.p>
+          {new Date().toISOString().slice(0, 10) >= "2026-06-01" && (
+            <motion.p
+              className="mt-1 text-[9px] uppercase tracking-[0.26em]"
+              style={{ color: "#C8A96E" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ delay: 0.6, duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+            >
+              ✦ 1 Month Anniversary ✦
+            </motion.p>
+          )}
         </div>
 
         {/* ── STATS ROW ── */}
@@ -244,6 +279,16 @@ export default function Home() {
           Made with intent · Not from a template
         </div>
       </main>
+
+      {/* ── ANNIVERSARY MODAL ── */}
+      <AnimatePresence>
+        {showAnniversary && (
+          <AnniversaryModal
+            onClaim={handleAnniversaryClaim}
+            onClose={handleAnniversaryClose}
+          />
+        )}
+      </AnimatePresence>
 
       {/* ── WARP ANIMATION (full-screen takeover) ── */}
       <AnimatePresence>

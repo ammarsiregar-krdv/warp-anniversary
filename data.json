@@ -277,7 +277,22 @@
       "rarity": 3,
       "type": "affirmation",
       "title": "Daily Broadcast",
-      "content": "Jam 2 pagi aku kebangun dan yang pertama aku inget adalah rute yang aku ambil waktu beli bunga buat kamu. It was so, so beautiful sayang. Dan itu semua karena kamu ada. 🌸🌙"    }
+      "content": "Jam 2 pagi aku kebangun dan yang pertama aku inget adalah rute yang aku ambil waktu beli bunga buat kamu. It was so, so beautiful sayang. Dan itu semua karena kamu ada. 🌸🌙"
+    },
+    {
+      "id": "3s_041",
+      "rarity": 3,
+      "type": "affirmation",
+      "title": "Daily Broadcast",
+      "content": "Sebulan. 30 hari. Dan aku masih bisa bilang dengan penuh keyakinan, ini salah satu keputusan terbaik yang pernah aku buat. Happy 1 month, my darling. 🤍"
+    },
+    {
+      "id": "3s_042",
+      "rarity": 3,
+      "type": "affirmation",
+      "title": "Daily Broadcast",
+      "content": "Satu bulan yang bikin aku makin yakin. Makin mau. Makin bersyukur. Thank you for being mine, babygirl. Aku sayang kamu banget. 🥹✨"
+    }
   ],
 
   "four_star": [
@@ -404,6 +419,16 @@
   ],
 
   "five_star": [
+    {
+      "id": "5s_anniversary",
+      "rarity": 5,
+      "type": "anniversary_letter",
+      "title": "✦ Satu Bulan · A Love Letter ✦",
+      "destination": "For My Babygirl 🤍",
+      "description": "Sebulan, dan aku nggak mau trade ini dengan apapun. Dari hari pertama kita figuring out ini bareng, sampai sekarang, kamu udah jadi bagian paling berharga dari 2026 aku. Makasih ya sayang, buat semua momen, setiap cerita, setiap 'i miss you' yang bikin hari aku jauh lebih berarti. I love you more than any pull in this warp system could ever say. 🤍",
+      "validity": "Forever & Beyond",
+      "terms": "Tidak ada expiry. Tidak ada syarat. Hanya kamu, selamanya."
+    },
     {
       "id": "5s_001",
       "rarity": 5,
