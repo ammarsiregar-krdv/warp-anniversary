@@ -31,7 +31,7 @@ export default function Home() {
   // Show anniversary modal on June 1st (once per device)
   useEffect(() => {
     if (FORCE_ANNIV_MODAL) {
-      setShowAnniversary(true);
+      setShowAnniversary(false);
       return;
     }
     const today = new Date().toISOString().slice(0, 10);
